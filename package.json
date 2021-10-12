@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-pact",
+  "name": "@chillibean/nestjs-pact",
   "version": "2.2.1",
   "license": "MIT",
   "description": "Injectable Pact.js Consumer/Producer for NestJS",
@@ -19,12 +19,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/omermorad/nestjs-pact.git"
+    "url": "git+https://github.com/Chillibean/nestjs-pact.git"
   },
   "bugs": {
-    "url": "https://github.com/omermorad/nestjs-pact/issues"
+    "url": "https://github.com/Chillibean/nestjs-pact/issues"
   },
-  "readme": "https://github.com/omermorad/nestjs-pact/README.md",
+  "readme": "https://github.com/Chillibean/nestjs-pact/README.md",
   "scripts": {
     "prebuild": "./node_modules/.bin/rimraf dist",
     "build": "tsc -p tsconfig.build.json",
