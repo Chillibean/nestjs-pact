@@ -1,4 +1,4 @@
-name: Release
+name: Build package
 on:
   push:
     branches:
@@ -39,6 +39,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bootstrap Packages
         run: yarn lerna bootstrap
