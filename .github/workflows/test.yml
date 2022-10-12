@@ -58,4 +58,4 @@ jobs:
           publish: yarn publish
           commit: "chore: version packages"
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
