@@ -7,41 +7,21 @@ jobs:
   main:
     name: Release
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Lint Commit Message
-        working-directory: commit-lint
-        run: |
-          yarn init -y
-          yarn add -D @commitlint/config-conventional
-          echo $(git log -1 --pretty=format:"%s") | yarn commitlint
-
-      - name: Create .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            @nestjs-pact:registry=https://registry.npmjs.org/
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            FirstName LastName (omer.mroadd@gmail.com, omer.mroadd@gmail.com)=true
-            email=omer.mroadd@gmail.com
-            always-auth=true
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Setup Node.js 12.x
-        uses: actions/setup-node@master
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 16.x
 
       - name: Install Dependencies
         run: yarn install
-
-      - name: Bootstrap Packages
-        run: yarn lerna bootstrap
 
       - name: Build
         run: yarn build
@@ -50,11 +30,9 @@ jobs:
         run: yarn test
 
       - name: Release
-        id: changesets
-        uses: changesets/action@master
-        with:
-          publish: yarn lerna publish from-package --yes
-          commit: "chore: version packages"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn publish --new-version $(npx -c 'echo "$npm_package_version"')
+
+      - name: Tag release
+        run: |
+          git tag Chillibean-v$(npx -c 'echo "$npm_package_version"')
+          git push --tags --no-verify    

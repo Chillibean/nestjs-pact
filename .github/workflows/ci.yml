@@ -7,11 +7,13 @@ jobs:
   main:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
-        node-version: [12.x, 14.x,  16.x]
+        node-version: [14.x, 16.x, 18.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
 
@@ -20,28 +22,16 @@ jobs:
           yarn add -D @commitlint/config-conventional
           echo $(git log -1 --pretty=format:"%s") | yarn commitlint
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Create .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            @nestjs-pact:registry=https://registry.npmjs.org/
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Install Dependencies
-        run: yarn
-
-      - name: Bootstrap Packages
-        run: yarn lerna bootstrap
+        run: yarn install
 
       - name: Build
         run: yarn build
 
       - name: Test
-        run: yarn test
+        run: yarn test:ci
