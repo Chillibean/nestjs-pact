@@ -49,9 +49,9 @@ export class PactProviderCoreModule {
   private static createAsyncOptionsProvider(options: PactProviderModuleAsyncOptions): Provider {
     if (options.useFactory) {
       return {
-        inject: options.inject || [],
         provide: PactModuleProviders.ProviderOptions,
         useFactory: options.useFactory,
+        inject: options.inject || [],
       };
     }
 

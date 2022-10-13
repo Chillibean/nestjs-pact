@@ -7,7 +7,7 @@ import { PactConsumerCoreModule } from './pact-consumer-core.module';
 
 @Module({})
 export class PactConsumerModule {
-  public static register(options: PactConsumerOverallOptions) {
+  public static register(options: PactConsumerOverallOptions): DynamicModule {
     return {
       module: PactConsumerModule,
       imports: [PactConsumerCoreModule.register(options)],
