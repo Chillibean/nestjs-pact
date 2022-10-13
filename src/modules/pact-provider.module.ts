@@ -7,7 +7,7 @@ import {
 
 @Module({})
 export class PactProviderModule {
-  public static register(options: PactProviderOptions) {
+  public static register(options: PactProviderOptions): DynamicModule {
     return {
       module: PactProviderModule,
       imports: [PactProviderCoreModule.register(options)],

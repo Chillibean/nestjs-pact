@@ -21,7 +21,8 @@
     ],
     "allowJs": true,
     "lib": [
-      "es6"
+      "es6",
+      "DOM"
     ],
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true
