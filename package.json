@@ -1,6 +1,6 @@
 {
   "name": "@chillibean/nestjs-pact",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "MIT",
   "description": "Injectable Pact.js Consumer/Producer for NestJS",
   "keywords": [
@@ -80,7 +80,7 @@
   "peerDependencies": {
     "@nestjs/common": "7.x || 8.x",
     "@nestjs/core": "7.x || 8.x",
-    "@pact-foundation/pact": "^9.0.0"
+    "@pact-foundation/pact": "^10.0.0"
   },
   "lint-staged": {
     "*.ts": [
